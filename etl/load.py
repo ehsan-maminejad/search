@@ -94,7 +94,8 @@ def tags_extractor(phrase):
                     filtered_list = [item for item in phrase.split() if item in keep_items]
                     categories = transform.fetch_similar_categories(' '.join(filtered_list), category_df)
                     if categories:
-                        phrase = phrase.replace(phrase, '')
+                        for watch_words in filtered_list:
+                            phrase = phrase.replace(watch_words, '')
                 else:
                     categories = transform.fetch_similar_categories(phrase, category_df)
                     if categories:
