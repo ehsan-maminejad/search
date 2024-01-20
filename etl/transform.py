@@ -7,6 +7,7 @@ class Transform:
 
         caption = re.sub(r'\bزیور آلات\b', 'زیورآلات', caption)
         caption = re.sub(r'\bنوزاد\b', 'نوزادی', caption)
+        caption = re.sub(r'\bربدو شامبر\b', 'ربدوشامبر', caption)
         caption_arr = re.split('[_ \n,،]+', caption)
         caption_arr = [word[:-2] if word.endswith("ها") else word[:-3] if word.endswith("های") else word for word in
                        caption_arr]

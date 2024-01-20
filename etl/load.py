@@ -19,7 +19,8 @@ def call_apis(api_urls, caption):
 api_urls = ["https://ai.kukala.ir/text/color/color_manual_set",
             "https://ai.kukala.ir/text/material/material_manual_set",
             "https://ai.kukala.ir/text/attribute/attribute_manual_set",
-            "https://ai.kukala.ir/text/brand/brand_manual_set"
+            "https://ai.kukala.ir/text/brand/brand_manual_set",
+            "https://ai.kukala.ir/text/category/category_manual_set"
             ]
 
 color_df = extract.color
@@ -28,8 +29,8 @@ material_df = extract.material
 attribute_df = extract.attribute
 category_df = extract.category
 
-
 transform = Transform()
+
 
 # Create a ThreadPoolExecutor with a maximum of 4 threads
 def tags_extractor(phrase):
@@ -89,8 +90,9 @@ def tags_extractor(phrase):
                     else:
                         categories = [categories]
                 else:
-                    categories = transform.fetch_similar_categories(phrase,category_df)
-                    phrase = phrase.replace(phrase, '')
+                    categories = transform.fetch_similar_categories(phrase, category_df)
+                    if categories:
+                        phrase = phrase.replace(phrase, '')
 
         return {'colors': colors, 'brands': brands, 'materials': materials, 'attributes': attributes,
                 'categories': categories, 'query': phrase.strip()}
