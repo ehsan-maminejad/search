@@ -40,7 +40,7 @@ class Transform:
             similar_df = category_df[category_df.Title == category_title]
             return list(similar_df.Id)
 
-    def find_children(self,parent_id, category_df):
+    def find_children(self, parent_id, category_df):
         children = []
         for index, row in category_df.iterrows():
             if parent_id == row["CategoryId"]:
@@ -52,6 +52,6 @@ class Transform:
         similar_categories = category_df[
             category_df['Grouping'].str.contains(r'\b' + phrase + r'\b', regex=True, na=False)]
         lst_similar_categories = list(similar_categories['Id'])
-        if len(lst_similar_categories) == 1:
+        if len(lst_similar_categories) == 1 and lst_similar_categories[0] not in [59, 91, 115, 138, 186, 472]:
             lst_similar_categories = self.find_children(lst_similar_categories[0], category_df)
         return lst_similar_categories
