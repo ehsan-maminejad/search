@@ -89,10 +89,18 @@ def tags_extractor(phrase):
                         categories = transform.get_other_categories(categories, category_df)
                     else:
                         categories = [categories]
+                elif item['CategoryId'] == -1 and phrase and 'ساعت' in phrase.split():
+                    categories = transform.fetch_similar_categories(phrase, category_df)
+                    if categories:
+                        phrase = phrase.replace(phrase, '')
                 else:
                     categories = transform.fetch_similar_categories(phrase, category_df)
                     if categories:
                         phrase = phrase.replace(phrase, '')
 
+        if phrase:
+            phrase = phrase.strip().split()
+        else:
+            phrase = []
         return {'colors': colors, 'brands': brands, 'materials': materials, 'attributes': attributes,
-                'categories': categories, 'query': phrase.strip()}
+                'categories': categories, 'query': phrase}
