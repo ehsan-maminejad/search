@@ -97,7 +97,12 @@ def tags_extractor(phrase):
                         for watch_words in filtered_list:
                             phrase = phrase.replace(watch_words, '')
                 elif item['CategoryId'] == -1 and item['search_category_id']:
-                    print(item['search_category_id'])
+                    category_title = category_df.loc[category_df['Id'] == item['search_category_id'], 'Grouping'].values[0]
+                    word_lst = transform.clean_caption(category_title).split()
+                    if word_lst:
+                        for _word in word_lst:
+                            phrase = phrase.replace(_word, '')
+                    categories = transform.fetch_similar_categories(category_title, category_df)
                 else:
                     categories = transform.fetch_similar_categories(phrase, category_df)
                     if categories:
