@@ -21,6 +21,7 @@ def get_category():
             resp = jsonify(message=f"عبارت صحیحی جستجو نشده است.")
             resp.status_code = 500
             return resp
+    #todo: add log to catch and analysis errors
     except Exception as e:
         return str(e)
 

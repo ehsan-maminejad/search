@@ -40,6 +40,7 @@ class Transform:
             similar_df = category_df[category_df.Title == category_title]
             return list(similar_df.Id)
 
+    #todo: remove this function
     def find_children(self, parent_id, category_df):
         children = []
         for index, row in category_df.iterrows():
