@@ -32,6 +32,8 @@ def get_category(phrase: Optional[str] = None):
                 log_data['phrase'] = phrase
                 logger.run(log_data)
                 raise HTTPException(status_code=404, detail="عبارت صحیحی جستجو نشده است.")
+            else:
+                return data
     except Exception as e:
         d = {'status_code': 500, 'error': str(e), 'phrase': phrase}
         logger.run(d)
