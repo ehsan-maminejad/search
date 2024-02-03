@@ -5,6 +5,7 @@ from utils import logger
 import os
 import sys
 import copy
+import uvicorn
 
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, root_path)
@@ -39,5 +40,5 @@ def get_category(phrase: Optional[str] = None):
         raise HTTPException(status_code=500, detail=f"عبارت صحیحی جستجو نشده است. Error: {str(e)}")
 
 
-if __name__ == '__main__':
-    app.run("0.0.0.0", port=80, debug=True)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=80)

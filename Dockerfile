@@ -1,13 +1,11 @@
-# Use the Python 3.9 image
 FROM repo.kukala.ir/ai/python:customized
 
-
-# Add the trusted host to the pip configuration
-RUN mkdir -p /etc/pip && echo "[global]\nextra-index-url=https://repo.kukala.ir/repository/kukalapythonrepo/" > /etc/pip/pip.conf
-# Set the working directory to /Ezshop/get_category_id
 COPY ./requirements.txt ./requirements.txt
 
-#Pip command without proxy setting
+
+RUN echo "[global]\nextra-index-url = https://e.maminejad:d0KgNffMZItoxQ7G@repo.kukala.ir/repository/kukalapythonrepo/simple\ntrusted-host = repo.kukala.ir/repository/kukalapythonrepo" > /etc/pip.conf
+
+
 RUN pip install -r ./requirements.txt
 
 WORKDIR /app
