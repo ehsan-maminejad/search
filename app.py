@@ -25,15 +25,13 @@ def get_category(phrase: Optional[str] = None):
                 log_data['status_code'] = 200
                 log_data['phrase'] = phrase
                 logger.run(log_data)
-            return data
-        elif all(isinstance(value, list) and not value for value in data.values()):
-            data = {'status_code': 404, 'phrase': phrase}
-            logger.run(data)
-            raise HTTPException(status_code=404, detail="عبارت صحیحی جستجو نشده است.")
-        else:
-            data = {'status_code': 500, 'phrase': phrase}
-            logger.run(data)
-            raise HTTPException(status_code=500, detail="عبارت صحیحی جستجو نشده است.")
+                return data
+            elif all(isinstance(value, list) and not value for value in data.values()):
+                log_data = copy.copy(data)
+                log_data['status_code'] = 404
+                log_data['phrase'] = phrase
+                logger.run(log_data)
+                raise HTTPException(status_code=404, detail="عبارت صحیحی جستجو نشده است.")
     except Exception as e:
         d = {'status_code': 500, 'error': str(e), 'phrase': phrase}
         logger.run(d)
