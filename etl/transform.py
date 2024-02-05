@@ -11,7 +11,7 @@ class Transform:
         caption_arr = re.split('[_ \n,،]+', caption)
         caption_arr = [word[:-2] if word.endswith("ها") else word[:-3] if word.endswith("های") else word for word in
                        caption_arr]
-        caption_arr = [word for word in caption_arr if word not in extract.stop_words]
+        caption_arr = [word for word in caption_arr if word not in extract.stop_words['word'].to_list()]
         return ' '.join(caption_arr)
 
     def get_category_father(self, category: int, category_df):
