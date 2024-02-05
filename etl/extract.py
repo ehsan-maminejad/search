@@ -42,6 +42,19 @@ class AttributesConfigModel(Mongo):
     _db_name = 'app_config'
 
 
+class StopWordsConfigModel(Mongo):
+    _connection_name = 'mongo_connection1'
+    _collection_name = 'search_stop_words'
+    _db_name = 'app_config'
+
+
+class ConfigModel(Mongo):
+    _connection_name = 'mongo_connection1'
+    _collection_name = 'classified_categories'
+    _db_name = 'app_config'
+
+
+
 def prepare_config(model, query={}):
     config_list = []
     records = model.collection.find(query)
@@ -51,11 +64,6 @@ def prepare_config(model, query={}):
     config.drop(columns=['_id'], inplace=True)
     return config
 
-
-class ConfigModel(Mongo):
-    _connection_name = 'mongo_connection1'
-    _collection_name = 'classified_categories'
-    _db_name = 'app_config'
 
 
 def prepare_config_ids():
@@ -81,4 +89,5 @@ material = prepare_config(MaterialsConfigModel())
 brand = prepare_config(brandsConfigModel())
 attribute = prepare_config(AttributesConfigModel(), query={"service": "title"})
 color = prepare_config(ColorsConfigModel(), query={"service": "title"})
-stop_words = get_stop_words()
+# stop_words = get_stop_words()
+stop_words = prepare_config(StopWordsConfigModel())
